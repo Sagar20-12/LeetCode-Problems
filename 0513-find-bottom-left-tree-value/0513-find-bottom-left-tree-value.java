@@ -13,7 +13,7 @@
  *     }
  * }
  */
-class Solution {
+/* class Solution {
     private int level;
     private int bottomLeftValue;
 
@@ -34,5 +34,37 @@ class Solution {
         }
         dfs(node.left, depth + 1);
         dfs(node.right, depth + 1);
+    }
+}
+*/
+
+
+class Solution{
+    public int findBottomLeftValue(TreeNode root){
+        if (root == null) {
+            return -1;
+        }
+
+        int bottomLeftValue = 0;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            bottomLeftValue = queue.peek().val;
+
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+        }
+
+        return bottomLeftValue;
     }
 }
